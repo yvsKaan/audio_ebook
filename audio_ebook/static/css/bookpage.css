@@ -1,0 +1,42 @@
+.book{
+    width: 90%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+}
+
+.book .book-head{
+    display: flex;
+    align-items: center;
+
+}
+
+.book-head .book-poster img{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.book-head .book-info{
+    font-size: 22px;
+    font-weight: 520;
+    margin: 0 20px;
+}
+
+.book-info .book-subinfo{
+    margin-top: 10px;
+}
+
+.book-subinfo .book-author{
+    font-size: 16px;
+    font-weight: 550;
+    color: rgb(0, 0, 0, 0.6);
+}
+
+.book-subinfo .book-desc{
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(0, 0, 0, 0.8);
+    margin: 5px auto 10px auto;
+}

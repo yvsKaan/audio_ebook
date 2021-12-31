@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?{% now "U" %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/context.css' %}?{% now "U" %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    
+    <body>
+        <div class="nav">
+            <div class="nav-left">
+                <form method="GET">
+                    <input type="text" name="search" placeholder="Search"/>
+                    <input type="submit" />
+                </form>
+            </div>
+            <div class="nav-right">
+                <ul>
+                    <a href="/"><li>Home</li></a>
+                    <a href="/catalogs/"><li>Catalogs</li></a>
+                    <a href="/books/"><li>Books</li></a>
+                    <a href="/library/"><li>Library</li></a>
+                    <a href="/accounts/logout"><li>logout</li></a>
+                </ul>
+            </div>
+        </div>
+        <div class="context">
+            {% if search is not None %}
+                {% for catalog in catalog_list%}
+                    <div class="context-title">
+                        {{ catalog.genre }}
+                    </div>
+                    <div class="booklist">
+                    {% for book in catalog.booklist.all %}
+                        <a href="/book/{{book.ISBN}}">
+                            <div class="book">
+                                <div class="book-poster">
+                                    <img src={{book.poster}} alt="" />
+                                </div>
+                                <div class="book-info">
+                                    <span class="book-title">{{book.title}}</span>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+                {% for book in book_list%}
+                    <div class="booklist">
+                        <a href="/book/{{book.ISBN}}">
+                            <div class="book">
+                                <div class="book-poster">
+                                    <img src={{book.poster}} alt="" />
+                                </div>
+                                <div class="book-info">
+                                    <span class="book-title">{{book.title}}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% if search is None %}
+                {% for recommend in recommend_catalog %}
+                    <div class="booklist">
+                    {% for book in recommend.booklist.all %}
+                        <a href="/book/{{book.ISBN}}">
+                            <div class="book">
+                                <div class="book-poster">
+                                    <img src={{book.poster}} alt="" />
+                                </div>
+                                <div class="book-info">
+                                    <span class="book-title">{{book.title}}</span>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+    </body>
+
+</html>

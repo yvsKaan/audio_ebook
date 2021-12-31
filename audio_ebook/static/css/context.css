@@ -1,0 +1,48 @@
+.context{
+    width: 100%;
+    height: 100vh;
+}
+.context-title{
+    width:90%;
+    height: 40px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: red;
+    border-bottom: 1px solid rgb(0, 0, 0, 0.5);
+    margin: 10px auto 10px auto;
+}
+
+.booklist{
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.book{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+    padding: 20px 10px;
+    border: 1px solid rgba(94, 90, 90, 0.5);
+    align-items: center;
+    overflow: hidden;
+}
+.book-poster img{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.book-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.book-info .book-title{
+    font-size: 14px;
+    font-weight: 550;
+}

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?{% now "U" %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}?{% now "U" %}">
+    </head>
+    <body>
+        <div class="user-form-main">
+            <div class="user-form">
+                <h2>Login</h2>
+                {% if form.error %}
+                    <p> Hatalı Giriş!</p>
+                {% endif %}
+
+                {% if next %}
+                    <p>Bu sayfaya erişimin yok!</p>
+                {% endif %}
+                
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>Username:</td>
+                            <td>{{form.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td>{{form.password}}</td>
+                        </tr>
+                    </table>
+                    <input type="submit" value="Login">
+                    <input type="hidden" name="next" value="{{next}}">
+
+                    <div class="login-link">
+                        <a href="{% url 'register' %}"> Click For New Accounts </a>
+                    </div>
+                </form>
+            </div>
+        <div>        
+    </body>
+
+</html>

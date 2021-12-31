@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?{% now "U" %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/cataloglist.css' %}?{% now "U" %}">
+    </head>
+    
+    <body>
+        <div class="nav">
+            <div class="nav-left">
+                <form method="GET">
+                    <input type="text" name="search" placeholder="Search"/>
+                    <input type="submit" />
+                </form>
+            </div>
+            <div class="nav-right">
+                <ul>
+                    <a href="/"><li>Home</li></a>
+                    <a href="/catalogs/"><li>Catalogs</li></a>
+                    <a href="/books/"><li>Books</li></a>
+                    <a href="/library/"><li>Library</li></a>
+                    <a href="/accounts/logout"><li>logout</li></a>
+                </ul>
+            </div>
+        </div>
+        <div class="context">
+            {% for book in book_list %}
+                <div class="booklist">
+                    <a href="/book/{{book.ISBN}}">
+                        <div class="book">
+                            <div class="book-poster">
+                                <img src={{book.poster}} alt="" />
+                            </div>
+                            <div class="book-info">
+                                <span class="book-title">{{book.title}}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </body>
+
+</html>
