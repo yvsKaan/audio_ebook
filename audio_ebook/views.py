@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import View, ListView, FormView, DetailView
 
-from .models import Book, Catalog, Subscribe
+from .models import Book, Catalog, Subscribe, AudiobookDetail
 from django.db.models import Q, query
 from .forms import BookForm, CatalogForm, SubscribeForm
 
@@ -39,11 +39,11 @@ class Home(ListView):
             return redirect('login')
 
 class CatalogList(View):
-
+    queryset = Catalog.objects.all()
     def get(self, request):
         if request.user.is_authenticated:
-            queryset = Catalog.objects.all()
-            search = request.GET.get("search", "")
+            user_subscribe = Subscribe.objects.filter(username= request.user.id)
+            search = request.GET.get("search", None)
             if search:
                 catalog_queryset = Catalog.objects.filter(
                     Q(catalog_title__icontains = search)|
@@ -58,12 +58,14 @@ class CatalogList(View):
                 context = {
                 'catalog_list': catalog_queryset,
                 'book_list': book_queryset,
-                'search': search
+                'search': search,
+                'user_subsribe': user_subscribe
                 }
                 return render(request, "index.html", context)
             else: 
                 context = {
-                    "catalog_list": queryset,
+                    "catalog_list": self.queryset,
+                    'user_subsribe': user_subscribe
                 }
                 return render(request, "cataloglist.html", context)
         else: 
@@ -71,10 +73,11 @@ class CatalogList(View):
     
     def post(self, request):
         form = SubscribeForm(request.POST)
-        if form.is_valid():
+        check = Subscribe.objects.filter(username= request.POST['username'], catalog= request.POST['catalog'])
+        if form.is_valid() and check is None:
             form.save()
             return redirect('/')
-            
+ 
         context = {
             "catalog_list": self.queryset
         }
@@ -116,6 +119,11 @@ class BookList(View):
 class BookView(DetailView):
     model = Book
     template_name = "bookinfo.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['audiodetail'] = AudiobookDetail.objects.filter(ISBN= self.object.ISBN)
+        return context
 
 
 class Library(View):

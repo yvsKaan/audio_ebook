@@ -38,8 +38,13 @@
                 </div>
             </div>
             <div class="book-content">
-                {% if book.type is Audiobook %}
+                {% if book.type_of_book is Audiobook %}
                     <div class="book-audio">
+                        {% for chapter in audiodetail %}
+                            Chapter {{ chapter.id }} -
+                            Start: {{ chapter.start_time }} - 
+                            End: {{ chapter.end_time }}
+                        {% endfor %}
                     </div>
                 {% endif %}
                 <iframe src={{object.source}}>

@@ -26,33 +26,39 @@
         </div>
         <div class="context">
             {% for catalog in catalog_list %}
-                <div class="context-title">
-                    <div class="context-name">
-                        {{ catalog.catalog_title }}
-                    </div>
-                    <div class="context-subscribe">
-                        <form method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="username" value="{{user.id}}">
-                            <input type="hidden" name="catalog" value="{{catalog.id}}">
-                            <input type="submit" value="Subscribe"/>
-                        </form>
-                    </div>
-                </div>
-                <div class="booklist">
-                {% for book in catalog.booklist.all %}
-                    <a href="/book/{{book.ISBN}}">
-                        <div class="book">
-                            <div class="book-poster">
-                                <img src={{book.poster}} alt="" />
-                            </div>
-                            <div class="book-info">
-                                <span class="book-title">{{book.title}}</span>
-                                <span class="book-author">{{book.author}}</span>
-                            </div>
+                <div class="catalog">
+                    <div class="context-title">
+                        <div class="context-name">
+                            {{ catalog.catalog_title }}
                         </div>
-                    </a>
-                {% endfor %}
+                        <div class="context-subscribe">
+                            {% for subs in user_subsribe %}
+                                {% if catalog.catalog_title != subs.catalog.catalog_title %}
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="username" value="{{user.id}}">
+                                        <input type="hidden" name="catalog" value="{{catalog.id}}">
+                                        <input type="submit" value="Subscribe"/>
+                                    </form>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="booklist">
+                        {% for book in catalog.booklist.all %}
+                            <a href="/book/{{book.ISBN}}">
+                                <div class="book">
+                                    <div class="book-poster">
+                                        <img src={{book.poster}} alt="" />
+                                    </div>
+                                    <div class="book-info">
+                                        <span class="book-title">{{book.title}}</span>
+                                        <span class="book-author">{{book.author}}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
                 </div>
             {% endfor %}
         </div>
