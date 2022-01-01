@@ -10,6 +10,7 @@
     top: 0;
     width: 100%;
     height: 100%;
+    border-radius: 5px;
     opacity: 0.9;
     z-index: -1;
 }
@@ -23,8 +24,12 @@
     z-index: 0;
 }
 .context{
-    width: 100%;
-    height: 100vh;
+    width: 90%;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    margin: auto;
+    border-radius: 10px;
 }
 .context-title{
     width:90%;
@@ -38,7 +43,7 @@
 }
 
 .booklist{
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
@@ -46,19 +51,22 @@
 
 .book{
     width: 200px;
-    height: 200px;
+    height: 250px;
     display: flex;
     flex-direction: column;
-    margin: 0 5px;
-    padding: 20px 10px;
-    border: 1px solid rgba(94, 90, 90, 0.5);
-    align-items: center;
+    margin: 5px 10px;
+    padding: 30px 20px;
+    border: 1px solid rgba(94, 90, 90, 0.3);
+    border-radius: 5px;
+    box-shadow: 0 5px 5px 0 rgb(228, 226, 226);
+    text-align: left;
     overflow: hidden;
 }
 .book-poster img{
-    width: 150px;
+    width: 200px;
     height: 150px;
     object-fit: contain;
+    margin-bottom: 10px;
 }
 
 .book-info{
@@ -69,4 +77,17 @@
 .book-info .book-title{
     font-size: 14px;
     font-weight: 550;
+}
+
+.book-info .book-author{
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 5px
+}
+
+@media only screen and (max-width: 960px){
+    .head-context h2{
+        top:10%;
+        left: 5%;
+    }
 }

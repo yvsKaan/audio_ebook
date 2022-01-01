@@ -25,20 +25,21 @@
             </div>
         </div>
         <div class="context">
-            {% for book in book_list %}
                 <div class="booklist">
-                    <a href="/book/{{book.ISBN}}">
-                        <div class="book">
-                            <div class="book-poster">
-                                <img src={{book.poster}} alt="" />
+                    {% for book in book_list %}
+                        <a href="/book/{{book.ISBN}}">
+                            <div class="book">
+                                <div class="book-poster">
+                                    <img src={{book.poster}} alt="" />
+                                </div>
+                                <div class="book-info">
+                                    <span class="book-title">{{book.title}}</span>
+                                    <span class="book-author">{{book.author}}</span>
+                                </div>
                             </div>
-                            <div class="book-info">
-                                <span class="book-title">{{book.title}}</span>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
+                    {% endfor %}
                 </div>
-            {% endfor %}
         </div>
         
     </body>

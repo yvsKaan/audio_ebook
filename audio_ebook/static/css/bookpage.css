@@ -1,37 +1,43 @@
 .book{
-    width: 90%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+    width: 95%;
+    height: auto;
+    padding: 10px;
+    background-color: white;
     margin: 10px auto;
+    border-radius: 10px;
+    display: flex;
 }
 
 .book .book-head{
+    flex: 0.3;
     display: flex;
+    flex-direction: column;
     align-items: center;
-
+    margin: 10px 10px 10px 0;
 }
 
 .book-head .book-poster img{
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 200px;
     object-fit: contain;
 }
 
 .book-head .book-info{
     font-size: 22px;
-    font-weight: 520;
+    font-weight: 550;
     margin: 0 20px;
+    text-align: center;
 }
 
 .book-info .book-subinfo{
     margin-top: 10px;
+    text-align: left;
 }
 
 .book-subinfo .book-author{
     font-size: 16px;
     font-weight: 550;
-    color: rgb(0, 0, 0, 0.6);
+    color: rgb(0, 0, 0, 0.8);
 }
 
 .book-subinfo .book-desc{
@@ -39,4 +45,20 @@
     font-weight: normal;
     color: rgb(0, 0, 0, 0.8);
     margin: 5px auto 10px auto;
+}
+
+.book .book-content{
+    flex: 0.7;
+}
+.book .book-content iframe{
+    width: 100%;
+    height: 100vh;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 960px){
+    .book{
+        flex-direction: column;
+    }
+
 }

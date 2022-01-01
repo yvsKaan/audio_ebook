@@ -32,13 +32,17 @@
                 <div class="book-info">
                     {{object.title}}
                     <div class="book-subinfo">
-                        <div class="book-author">Author: {{object.author}}</div>
-                        <div class="book-desc">Description: {{object.description}}</div>
+                        <div class="book-author">{{object.author}}</div>
+                        <div class="book-desc">{{object.description}}</div>
                     </div>
                 </div>
             </div>
             <div class="book-content">
-                <iframe src={{object.source}} width="100%" height="500px">
+                {% if book.type is Audiobook %}
+                    <div class="book-audio">
+                    </div>
+                {% endif %}
+                <iframe src={{object.source}}>
             </div>
         </div>
         
