@@ -39,14 +39,35 @@ class Home(ListView):
             return redirect('login')
 
 class CatalogList(View):
-    queryset = Catalog.objects.all()
 
     def get(self, request):
-        context = {
-            "catalog_list": self.queryset,
-        }
-
-        return render(request, "cataloglist.html", context)
+        if request.user.is_authenticated:
+            queryset = Catalog.objects.all()
+            search = request.GET.get("search", "")
+            if search:
+                catalog_queryset = Catalog.objects.filter(
+                    Q(catalog_title__icontains = search)|
+                    Q(genre__icontains = search)|
+                    Q(language__icontains = search)
+                )
+                book_queryset = Book.objects.filter(
+                    Q(title__icontains = search)|
+                    Q(ISBN = search)|
+                    Q(author__icontains = search)
+                )
+                context = {
+                'catalog_list': catalog_queryset,
+                'book_list': book_queryset,
+                'search': search
+                }
+                return render(request, "index.html", context)
+            else: 
+                context = {
+                    "catalog_list": queryset,
+                }
+                return render(request, "cataloglist.html", context)
+        else: 
+            return redirect('login')
     
     def post(self, request):
         form = SubscribeForm(request.POST)
@@ -64,12 +85,33 @@ class CatalogList(View):
 class BookList(View):
     model = Book
     def get(self, request):
-        queryset = self.model.objects.all()
-        context = {
-            "book_list": queryset.order_by('title'),
-        }
-
-        return render(request, "booklist.html", context)
+        if request.user.is_authenticated:
+            queryset = self.model.objects.all()
+            search = request.GET.get("search", "")
+            if search:
+                catalog_queryset = Catalog.objects.filter(
+                    Q(catalog_title__icontains = search)|
+                    Q(genre__icontains = search)|
+                    Q(language__icontains = search)
+                )
+                book_queryset = Book.objects.filter(
+                    Q(title__icontains = search)|
+                    Q(ISBN = search)|
+                    Q(author__icontains = search)
+                )
+                context = {
+                'catalog_list': catalog_queryset,
+                'book_list': book_queryset,
+                'search': search
+                }
+                return render(request, "index.html", context)
+            else:
+                context = {
+                    "book_list": queryset.order_by('title'),
+                }
+                return render(request, "booklist.html", context)
+        else: 
+            return redirect('login')
 
 class BookView(DetailView):
     model = Book
@@ -79,26 +121,34 @@ class BookView(DetailView):
 class Library(View):
     model = Subscribe
     def get(self, request):
-        queryset = self.model.objects.filter(username = request.user.id)
-        context = {
-            "library_list": queryset,
-        }
-
-        return render(request, "library.html", context)
-    
-class RegisterFormView(FormView):
-    template_name = "registration/register.html"
-    form_class = UserCreationForm
-
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            form.save()
+        if request.user.is_authenticated:
+            queryset = self.model.objects.filter(username = request.user.id)
+            search = request.GET.get("search", "")
+            if search:
+                catalog_queryset = Catalog.objects.filter(
+                    Q(catalog_title__icontains = search)|
+                    Q(genre__icontains = search)|
+                    Q(language__icontains = search)
+                )
+                book_queryset = Book.objects.filter(
+                    Q(title__icontains = search)|
+                    Q(ISBN = search)|
+                    Q(author__icontains = search)
+                )
+                context = {
+                'catalog_list': catalog_queryset,
+                'book_list': book_queryset,
+                'search': search
+                }
+                return render(request, "index.html", context)
+            else:
+                context = {
+                    "library_list": queryset,
+                }
+                return render(request, "library.html", context)
+        else: 
             return redirect('login')
-        else:
-            form = UserCreationForm()
-            return render(request, "registration/register.html", {'form': form})
-
+    
 class RegisterFormView(FormView):
     template_name = "registration/register.html"
     form_class = UserCreationForm
