@@ -32,16 +32,12 @@
                             {{ catalog.catalog_title }}
                         </div>
                         <div class="context-subscribe">
-                            {% for subs in user_subsribe %}
-                                {% if catalog.catalog_title != subs.catalog.catalog_title %}
-                                    <form method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="username" value="{{user.id}}">
-                                        <input type="hidden" name="catalog" value="{{catalog.id}}">
-                                        <input type="submit" value="Subscribe"/>
-                                    </form>
-                                {% endif %}
-                            {% endfor %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="username" value="{{user.id}}">
+                                <input type="hidden" name="catalog" value="{{catalog.id}}">
+                                <input type="submit" value="Subscribe"/>
+                            </form>
                         </div>
                     </div>
                     <div class="booklist">

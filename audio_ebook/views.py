@@ -59,7 +59,6 @@ class CatalogList(View):
                 'catalog_list': catalog_queryset,
                 'book_list': book_queryset,
                 'search': search,
-                'user_subsribe': user_subscribe
                 }
                 return render(request, "index.html", context)
             else: 
@@ -73,8 +72,12 @@ class CatalogList(View):
     
     def post(self, request):
         form = SubscribeForm(request.POST)
-        check = Subscribe.objects.filter(username= request.POST['username'], catalog= request.POST['catalog'])
-        if form.is_valid() and check is None:
+        check = Subscribe.objects.filter(
+            Q(username= request.POST['username'])&
+            Q(catalog= request.POST['catalog'])
+            )
+        print(check.exists())
+        if form.is_valid() and check.exists() is False:
             form.save()
             return redirect('/')
  
