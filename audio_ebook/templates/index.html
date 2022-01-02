@@ -33,7 +33,7 @@
             {% if search is not None %}
                 {% for catalog in catalog_list%}
                     <div class="context-title">
-                        {{ catalog.genre }}
+                        {{ catalog.catalog_title }}
                     </div>
                     <div class="booklist">
                     {% for book in catalog.booklist.all %}
