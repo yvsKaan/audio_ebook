@@ -57,7 +57,7 @@ p{
         overflow-y: hidden;
     }
     .user-form-main{
-        background-size: cover;
+        background-size: 100% 100%;
         background-position: left;
         justify-content: center;
     }
