@@ -2,6 +2,7 @@
     background-image: url(https://images.unsplash.com/photo-1544716278-e513176f20b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTF8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80);
     background-repeat: no-repeat;
     background-size: 100%;
+    background-attachment: fixed;  
     background-position: center;
     height: 100vh;
     width: 100%;
