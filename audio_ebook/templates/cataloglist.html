@@ -32,8 +32,19 @@
                             {{ catalog.catalog_title }}
                         </div>
                         <div class="context-subscribe">
-                            {% for sub in user_subsribe%}
-                            {% if sub.catalog != catalog %}
+                            {% if user_subsribe %}
+                                {% for sub in user_subsribe%}
+                                    {% if sub.catalog.id != catalog.id %}
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="username" value="{{user.id}}">
+                                            <input type="hidden" name="catalog" value="{{catalog.id}}">
+                                            <input type="submit" value="Subscribe"/>
+                                        </form>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if not user_subsribe%}
                                 <form method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="username" value="{{user.id}}">
@@ -41,7 +52,6 @@
                                     <input type="submit" value="Subscribe"/>
                                 </form>
                             {% endif %}
-                            {% endfor %}
                         </div>
                     </div>
                     <div class="booklist">

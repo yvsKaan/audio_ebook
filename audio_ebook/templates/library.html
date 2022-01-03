@@ -30,6 +30,14 @@
                     <div class="context-name">
                         {{ list.catalog.catalog_title }}
                     </div>
+                    <div class="context-subscribe">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="username" value="{{user.id}}">
+                            <input type="hidden" name="catalog" value="{{list.catalog.id}}">
+                            <input type="submit" value="unsubscribe"/>
+                        </form>
+                    </div>
                 </div>
                 <div class="booklist">
                     {% for book in list.catalog.booklist.all %}
